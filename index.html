@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>2027 To Do Calendar</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">2027 Calendar</p>
+          <h1>일정과 할 일을 날짜별로 정리하세요</h1>
+        </div>
+        <div class="year-badge" aria-label="현재 연도">2027</div>
+      </header>
+
+      <main class="layout">
+        <section class="calendar-panel" aria-label="2027년 달력">
+          <div class="month-toolbar">
+            <button class="nav-button" id="prevMonth" type="button" aria-label="이전 달">
+              이전
+            </button>
+            <div>
+              <p class="month-kicker">선택한 달</p>
+              <h2 id="monthTitle">1월</h2>
+            </div>
+            <button class="nav-button" id="nextMonth" type="button" aria-label="다음 달">
+              다음
+            </button>
+          </div>
+
+          <div class="weekday-row" aria-hidden="true">
+            <span>일</span>
+            <span>월</span>
+            <span>화</span>
+            <span>수</span>
+            <span>목</span>
+            <span>금</span>
+            <span>토</span>
+          </div>
+
+          <div class="calendar-grid" id="calendarGrid"></div>
+        </section>
+
+        <aside class="todo-panel" aria-label="선택한 날짜의 할 일">
+          <div class="selected-date">
+            <p class="month-kicker">선택한 날짜</p>
+            <h2 id="selectedDateTitle">2027년 1월 1일</h2>
+          </div>
+
+          <form class="todo-form" id="todoForm">
+            <label for="todoInput">할 일 입력</label>
+            <div class="input-row">
+              <input
+                id="todoInput"
+                name="todo"
+                type="text"
+                maxlength="80"
+                placeholder="예: 오전 회의 준비"
+                autocomplete="off"
+              />
+              <button type="submit">추가</button>
+            </div>
+          </form>
+
+          <div class="todo-summary" id="todoSummary">등록된 할 일이 없습니다.</div>
+          <ul class="todo-list" id="todoList"></ul>
+        </aside>
+      </main>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

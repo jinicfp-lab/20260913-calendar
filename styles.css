@@ -1,0 +1,464 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css");
+
+:root {
+  --purple-900: #311458;
+  --purple-800: #4b2380;
+  --purple-700: #6533a3;
+  --purple-600: #7a45bd;
+  --purple-100: #efe8f8;
+  --purple-50: #f8f4fc;
+  --ink: #1f1f29;
+  --muted: #686374;
+  --line: #ded7e8;
+  --surface: #ffffff;
+  --page: #f6f4f9;
+  --danger: #a53b4b;
+  --shadow: 0 18px 45px rgba(49, 20, 88, 0.11);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--ink);
+  background: var(--page);
+  font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+.app-shell {
+  width: min(1180px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 32px 0;
+}
+
+.topbar {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+.eyebrow,
+.month-kicker {
+  margin: 0 0 6px;
+  color: var(--purple-700);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+h1,
+h2 {
+  margin: 0;
+  letter-spacing: 0;
+}
+
+h1 {
+  font-size: clamp(28px, 4vw, 44px);
+  line-height: 1.15;
+  color: var(--purple-900);
+}
+
+h2 {
+  font-size: 28px;
+  line-height: 1.2;
+}
+
+.year-badge {
+  flex: 0 0 auto;
+  min-width: 96px;
+  height: 56px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--purple-700);
+  border-radius: 8px;
+  color: var(--purple-900);
+  background: var(--surface);
+  font-size: 22px;
+  font-weight: 800;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 360px;
+  gap: 22px;
+  align-items: start;
+}
+
+.calendar-panel,
+.todo-panel {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+}
+
+.calendar-panel {
+  padding: 22px;
+}
+
+.todo-panel {
+  position: sticky;
+  top: 24px;
+  padding: 22px;
+}
+
+.month-toolbar {
+  display: grid;
+  grid-template-columns: 96px 1fr 96px;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.nav-button,
+.input-row button,
+.delete-button {
+  min-height: 42px;
+  border: 1px solid var(--purple-700);
+  border-radius: 8px;
+  font-weight: 700;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.nav-button {
+  color: var(--purple-800);
+  background: var(--surface);
+}
+
+.nav-button:hover,
+.nav-button:focus-visible {
+  color: var(--surface);
+  background: var(--purple-700);
+  outline: none;
+}
+
+.nav-button:disabled {
+  color: #9a92a7;
+  border-color: var(--line);
+  background: #f2eff5;
+  cursor: not-allowed;
+}
+
+.nav-button:disabled:hover {
+  color: #9a92a7;
+  background: #f2eff5;
+}
+
+.weekday-row,
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+}
+
+.weekday-row {
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.weekday-row span {
+  padding: 10px 0;
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 800;
+  text-align: center;
+}
+
+.weekday-row span:first-child {
+  color: #b73548;
+}
+
+.weekday-row span:last-child {
+  color: #2864ad;
+}
+
+.calendar-grid {
+  gap: 8px;
+}
+
+.day-cell {
+  position: relative;
+  min-height: 104px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  text-align: left;
+}
+
+.day-cell:hover,
+.day-cell:focus-visible {
+  border-color: var(--purple-600);
+  background: var(--purple-50);
+  outline: none;
+}
+
+.day-cell.is-empty {
+  border-style: dashed;
+  background: #fbfafc;
+  cursor: default;
+}
+
+.day-cell.is-empty:hover {
+  border-color: var(--line);
+  background: #fbfafc;
+}
+
+.day-cell.is-selected {
+  border-color: var(--purple-700);
+  background: var(--purple-100);
+  box-shadow: inset 0 0 0 2px var(--purple-700);
+}
+
+.day-cell.is-sunday .day-number,
+.day-cell.is-holiday .day-number {
+  color: #b73548;
+}
+
+.day-cell.is-saturday .day-number {
+  color: #2864ad;
+}
+
+.day-cell.is-saturday.is-holiday .day-number {
+  color: #b73548;
+}
+
+.day-number {
+  display: block;
+  color: var(--ink);
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.holiday-name {
+  display: block;
+  margin-top: 6px;
+  color: #b73548;
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+}
+
+.todo-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 28px;
+  height: 24px;
+  margin-top: 18px;
+  padding: 0 8px;
+  border-radius: 999px;
+  color: var(--surface);
+  background: var(--purple-700);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.todo-preview {
+  display: block;
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.35;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+
+.selected-date {
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--line);
+}
+
+.todo-form {
+  display: grid;
+  gap: 10px;
+  margin: 20px 0 16px;
+}
+
+.todo-form label {
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.input-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 74px;
+  gap: 8px;
+}
+
+.input-row input {
+  width: 100%;
+  min-height: 42px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 0 12px;
+  color: var(--ink);
+  background: var(--surface);
+}
+
+.input-row input:focus {
+  border-color: var(--purple-700);
+  outline: 3px solid var(--purple-100);
+}
+
+.input-row button {
+  color: var(--surface);
+  background: var(--purple-700);
+}
+
+.input-row button:hover,
+.input-row button:focus-visible {
+  border-color: var(--purple-900);
+  background: var(--purple-900);
+  outline: none;
+}
+
+.todo-summary {
+  min-height: 22px;
+  margin-bottom: 12px;
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.todo-list {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.todo-item {
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr) 58px;
+  gap: 8px;
+  align-items: center;
+  min-height: 48px;
+  padding: 8px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--purple-50);
+}
+
+.todo-item input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--purple-700);
+}
+
+.todo-text {
+  color: var(--ink);
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.todo-item.is-done .todo-text {
+  color: var(--muted);
+  text-decoration: line-through;
+}
+
+.delete-button {
+  min-height: 34px;
+  color: var(--danger);
+  background: var(--surface);
+  border-color: rgba(165, 59, 75, 0.35);
+  font-size: 13px;
+}
+
+.delete-button:hover,
+.delete-button:focus-visible {
+  color: var(--surface);
+  background: var(--danger);
+  border-color: var(--danger);
+  outline: none;
+}
+
+@media (max-width: 920px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .todo-panel {
+    position: static;
+  }
+}
+
+@media (max-width: 640px) {
+  .app-shell {
+    width: min(100% - 20px, 1180px);
+    padding: 18px 0;
+  }
+
+  .topbar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .year-badge {
+    width: 100%;
+  }
+
+  .calendar-panel,
+  .todo-panel {
+    padding: 14px;
+  }
+
+  .month-toolbar {
+    grid-template-columns: 76px 1fr 76px;
+    gap: 8px;
+  }
+
+  h2 {
+    font-size: 22px;
+  }
+
+  .weekday-row,
+  .calendar-grid {
+    gap: 5px;
+  }
+
+  .weekday-row span {
+    font-size: 12px;
+  }
+
+  .day-cell {
+    min-height: 78px;
+    padding: 8px;
+  }
+
+  .day-number {
+    font-size: 15px;
+  }
+
+  .todo-count {
+    min-width: 22px;
+    height: 20px;
+    margin-top: 10px;
+    padding: 0 6px;
+  }
+
+  .todo-preview {
+    display: none;
+  }
+
+  .holiday-name {
+    font-size: 11px;
+  }
+}
